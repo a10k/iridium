@@ -59,15 +59,19 @@ code {
   margin-bottom: 12px;
 }
 .IridiumCell.Pinned {
-  border-right: 1px solid var(--sl-color-gray-200);
+  border-left: 1px solid var(--sl-color-gray-200);
+}
+.IridiumCell.UnPinned {
+  border-left: 1px solid transparent;
 }
 .IridiumCell:hover {
-  border-right: 1px solid var(--sl-color-gray-700);
+  border-left: 1px solid var(--sl-color-gray-700);
 }
 .CellResults,
 .CellError {
   position: relative;
   padding: 0px 14px;
+  min-height: 32px;
 }
 .CellContainer {
   position: relative;
@@ -76,28 +80,30 @@ code {
 }
 .CellBefore {
   position: absolute;
-  top: -16px;
-  left: -30px;
+  top: -28px;
+  left: -32px;
   padding-right: 10px;
   opacity: 0;
+  z-index: 10;
 }
 .IridiumCell:hover .CellBefore {
   opacity: 0.4;
 }
 .CellsAfter {
-  transform: translate(-28px, -16px);
+  transform: translate(-30px, -16px);
   padding-right: 200px;
   opacity: 0.5;
 }
 
 .CellActions {
   position: absolute;
-  right: calc(-100% - 1px);
+  left: calc(-100% - 1px);
   top: 0px;
   background: #f5f5f5;
   width: 100%;
   height: 100%;
   opacity: 0;
+  text-align: right;
 }
 
 .IridiumCell:hover .CellActions {
@@ -146,5 +152,5 @@ code {
   display: none !important;
 }
 .IridiumViewOnly .IridiumCell {
-  border-right: none !important;
+  border-left: none !important;
 }

@@ -58,7 +58,7 @@ const IridiumNotebook = (props) => {
     _id(id + 1);
     return _cells([
       ...cells,
-      { id: id + 1, pin: true, sourceCode: '/* New Cell! */' },
+      { id: id + 1, pin: true, sourceCode: '' },
     ]);
   };
   const _onNewBefore = (index) => {
@@ -66,7 +66,7 @@ const IridiumNotebook = (props) => {
     cells.splice(index, 0, {
       id: id + 1,
       pin: true,
-      sourceCode: '/* New Cell! */',
+      sourceCode: '',
     });
     return _cells(cells);
   };
@@ -95,7 +95,7 @@ const IridiumNotebook = (props) => {
         change(null);
         const ro = new ResizeObserver((entries) => {
           for (let entry of entries) {
-            change(entry.contentRect.width);
+            change(entry.contentRect.width - 28);
           }
         });
         ro.observe(ref.current);
