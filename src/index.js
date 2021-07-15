@@ -2,6 +2,7 @@ import { html, render } from 'htm/preact';
 import { useEffect, useRef, useState } from 'preact/hooks';
 import localForage from 'localforage';
 import IridiumNotebook from './components/IridiumNotebook';
+import icons from './icons';
 
 import './inspector.css';
 import './editor.css';
@@ -18,7 +19,7 @@ import '@shoelace-style/shoelace/dist/components/icon-button/icon-button.js';
 import { registerIconLibrary } from '@shoelace-style/shoelace/dist/utilities/icon-library.js';
 
 registerIconLibrary('default', {
-  resolver: (name) => `./icons/${name}.svg`,
+  resolver: icons,
   mutator: (svg) => svg.setAttribute('fill', 'currentColor'),
 });
 
