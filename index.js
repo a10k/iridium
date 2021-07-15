@@ -56,7 +56,7 @@
               name="text-indent-left"
               label="Indent"
               style="font-size: 1.25rem;"
-              onClick=${()=>{var e=lc(r,{wrap_line_length:62});s(e)}}
+              onClick=${()=>{var e=lc(r,{});s(e)}}
             ></sl-icon-button>
             <sl-icon-button
               name=${u?"play-fill":"play"}

@@ -2,21 +2,18 @@
 :root {
   --ir-error: #ff5859;
   --syntax_normal: #1b1e23;
-  --syntax_comment: #828282;
-  --syntax_diff: #24292e;
-  --syntax_diff_bg: #fff;
+  --syntax_comment: #a9b0bc;
   --syntax_number: #20a5ba;
-  --syntax_keyword: #ff5859;
-  --syntax_atom: #4db6ad;
+  --syntax_keyword: #c30771;
+  --syntax_atom: #10a778;
   --syntax_string: #008ec4;
-  --syntax_error: #f8cdd6;
+  --syntax_error: #ffbedc;
   --syntax_unknown_variable: #838383;
   --syntax_known_variable: #005f87;
-  --syntax_matchbracket: #9fdded;
-  --syntax_key: #9b51e0;
-  --selection: #f3dab1;
+  --syntax_matchbracket: #20bbfc;
+  --syntax_key: #6636b4;
+  --mono_fonts: 82%/1.5 Menlo, Consolas, monospace;
   --hr: rgba(0, 0, 0, 0.05);
-  --mono_fonts: 14px/1.5 Menlo, Consolas, monospace;
   --sans-serif: 'Source Serif Pro', Iowan Old Style, Apple Garamond,
     Palatino Linotype, Times New Roman, 'Droid Serif', Times, serif,
     Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
