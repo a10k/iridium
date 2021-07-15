@@ -131,7 +131,7 @@ const IridiumCell = (props) => {
               label="Indent"
               style="font-size: 1.25rem;"
               onClick=${() => {
-                var formatted = beautify(sourceCode, { wrap_line_length: 62 });
+                var formatted = beautify(sourceCode, {});
                 _sourceCode(formatted);
               }}
             ></sl-icon-button>
