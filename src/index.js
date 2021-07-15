@@ -6,7 +6,6 @@ import icons from './icons';
 
 import './inspector.css';
 import './editor.css';
-import 'prismjs/themes/prism.css';
 import '@shoelace-style/shoelace/dist/themes/base.css';
 
 import '@shoelace-style/shoelace/dist/components/menu/menu.js';

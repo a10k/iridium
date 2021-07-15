@@ -2,6 +2,7 @@ import { html } from 'htm/preact';
 import { useEffect, useRef, useState } from 'preact/hooks';
 import { Inspector } from '@observablehq/runtime';
 import CodeEditor from './CodeEditor.js';
+import beautify from 'js-beautify';
 
 const IridiumCell = (props) => {
   const ref = useRef(null);
@@ -124,6 +125,15 @@ const IridiumCell = (props) => {
               name="trash2"
               label="Delete"
               onClick=${_onDelete}
+            ></sl-icon-button>
+            <sl-icon-button
+              name="text-indent-left"
+              label="Indent"
+              style="font-size: 1.25rem;"
+              onClick=${() => {
+                var formatted = beautify(sourceCode, { wrap_line_length: 62 });
+                _sourceCode(formatted);
+              }}
             ></sl-icon-button>
             <sl-icon-button
               name=${unsaved ? 'play-fill' : 'play'}

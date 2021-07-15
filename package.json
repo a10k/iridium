@@ -25,9 +25,10 @@
     "@observablehq/runtime": "^4.11.2",
     "@shoelace-style/shoelace": "^2.0.0-beta.42",
     "codejar": "^3.4.0",
+    "highlight.js": "^11.1.0",
     "htm": "^3.0.4",
+    "js-beautify": "^1.14.0",
     "localforage": "^1.9.0",
-    "preact": "^10.5.13",
-    "prismjs": "^1.23.0"
+    "preact": "^10.5.13"
   }
 }
