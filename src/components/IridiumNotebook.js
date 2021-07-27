@@ -1,10 +1,7 @@
 import { html } from 'htm/preact';
 import { useEffect, useRef, useState } from 'preact/hooks';
 import { Runtime } from '@observablehq/runtime';
-import {
-  Interpreter,
-  Compiler,
-} from '@alex.garcia/unofficial-observablehq-compiler';
+import { Interpreter } from '@alex.garcia/unofficial-observablehq-compiler';
 import IridiumCell from './IridiumCell.js';
 
 const iridiumImportResolver = (path) => {
@@ -56,10 +53,7 @@ const IridiumNotebook = (props) => {
   };
   const _onNew = () => {
     _id(id + 1);
-    return _cells([
-      ...cells,
-      { id: id + 1, pin: true, sourceCode: '' },
-    ]);
+    return _cells([...cells, { id: id + 1, pin: true, sourceCode: '' }]);
   };
   const _onNewBefore = (index) => {
     _id(id + 1);

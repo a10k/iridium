@@ -1,7 +1,14 @@
 import { html } from 'htm/preact';
 import { useEffect, useRef, useState } from 'preact/hooks';
 import { CodeJar } from 'codejar';
-import hljs from 'highlight.js/lib/common';
+
+import hljs from 'highlight.js/lib/core';
+import javascript from 'highlight.js/lib/languages/javascript';
+hljs.registerLanguage('javascript', javascript);
+import xml from 'highlight.js/lib/languages/xml';
+hljs.registerLanguage('xml', xml);
+import css from 'highlight.js/lib/languages/css';
+hljs.registerLanguage('css', css);
 
 const CodeEditor = (props) => {
   const ref = useRef(null);
