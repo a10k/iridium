@@ -29,7 +29,7 @@ const CodeEditor = (props) => {
           tab: '\t',
           indentOn: /[(\[]$/,
           addClosing: false,
-          spellcheck: true,
+          spellcheck: false,
         },
       );
 
