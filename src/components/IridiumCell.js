@@ -10,6 +10,7 @@ const IridiumCell = (props) => {
   const [sourceCode, _sourceCode] = useState(props.sourceCode || '');
   const [savedSourceCode, _savedSourceCode] = useState(null);
   const [variables, _variables] = useState(null);
+  const [setSource, _setSource] = useState(null);
   const unsaved = savedSourceCode !== sourceCode;
 
   const _onDelete = () => {
@@ -119,6 +120,7 @@ const IridiumCell = (props) => {
             unsaved=${unsaved}
             onUpdate=${_onTextAreaInput}
             onKeypress=${_onTextAreaKeypress}
+            set_code=${_setSource}
           />
           <div class="CellEditorActions">
             <sl-icon-button
@@ -132,7 +134,7 @@ const IridiumCell = (props) => {
               style="font-size: 1.25rem;"
               onClick=${() => {
                 var formatted = beautify(sourceCode, {});
-                _sourceCode(formatted);
+                setSource && setSource.setter(formatted);
               }}
             ></sl-icon-button>
             <sl-icon-button

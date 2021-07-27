@@ -31,8 +31,16 @@ const CodeEditor = (props) => {
         _code(code);
       });
 
+      props.set_code({
+        setter: (c) => {
+          _code(c);
+          cj && cj.updateCode(c);
+        },
+      });
+
       _jar(cj);
     }
+
     return () => {
       jar && jar.destroy();
     };
@@ -43,12 +51,6 @@ const CodeEditor = (props) => {
       props.onUpdate(code);
     }
   }, [code]);
-
-  useEffect(() => {
-    if (props.code !== code) {
-      jar && jar.updateCode(props.code);
-    }
-  }, [props.code]);
 
   return html`<div class="EditorWrapper" tabindex=${props.index + ''}>
     <div
