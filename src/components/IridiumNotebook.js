@@ -4,9 +4,9 @@ import { Runtime } from '@observablehq/runtime';
 import { Interpreter } from '@alex.garcia/unofficial-observablehq-compiler';
 import IridiumCell from './IridiumCell.js';
 
-const iridiumImportResolver = (path) => {
-  if (path.indexOf('/') > -1 || true) {
-    return fetch(path)
+const iridiumImportResolver = (notebook) => {
+  if (notebook.indexOf('gist.githubusercontent.com') > -1) {
+    return fetch(notebook)
       .then((res) => res.text())
       .then((js) => {
         const blob = new Blob([js], {
@@ -17,6 +17,15 @@ const iridiumImportResolver = (path) => {
       })
       .then((u) => import(u))
       .then((m) => m.default);
+  } else {
+    const origin = `https://api.observablehq.com`;
+    const path = /^@[0-9a-z_-]+\/[0-9a-z_-]+(\/\d+)?([@~]|$)/.test(notebook)
+      ? `${origin}/${notebook}.js?v=3`
+      : /^[0-9a-f]{16}([@~]|$)/.test(notebook)
+      ? `${origin}/d/${notebook}.js?v=3`
+      : notebook;
+
+    return import(path).then((m) => m.default);
   }
 };
 
@@ -96,6 +105,9 @@ const IridiumNotebook = (props) => {
         return () => ro.disconnect();
       }),
     );
+
+    // Store the main to top parent to use it for setting magic variables from outside the notebook
+    props.onReady(main);
   }, []);
 
   useEffect(() => {

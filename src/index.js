@@ -4,8 +4,8 @@ import localForage from 'localforage';
 import IridiumNotebook from './components/IridiumNotebook';
 import icons from './icons';
 
-import './inspector.css';
 import './editor.css';
+import './inspector.css';
 import '@shoelace-style/shoelace/dist/themes/base.css';
 
 import '@shoelace-style/shoelace/dist/components/menu/menu.js';
@@ -21,36 +21,6 @@ registerIconLibrary('default', {
   resolver: icons,
   mutator: (svg) => svg.setAttribute('fill', 'currentColor'),
 });
-
-window.Iridium = {
-  save: (name, cells) => {
-    return localForage.setItem(name, cells);
-  },
-  new: (name) => {
-    return localForage.setItem(name, []);
-  },
-  load: (name) => {
-    return localForage.getItem(name);
-  },
-  list: () => {
-    return localForage.keys();
-  },
-  delete: (name) => {
-    localForage.removeItem(name);
-  },
-  get_recent: () => {
-    return localStorage.getItem('IridiumRecent');
-  },
-  set_recent: (name) => {
-    if (name) {
-      return localStorage.setItem('IridiumRecent', name);
-    } else {
-      return false;
-    }
-  },
-  toggle_editor: () => {},
-  localForage: localForage,
-};
 
 const IridiumApp = (props) => {
   const [current, _current] = useState(props.Ir.get_recent() || null);
@@ -85,12 +55,17 @@ const IridiumApp = (props) => {
     props.Ir.save(current, cells);
   };
 
+  const onReady = (main) => {
+    props.Ir.ready(main);
+  };
+
   return html`<div class="IridiumApp">
     ${cells
       ? html`<${IridiumNotebook}
           title=${current}
           cells=${cells}
           onSave=${onSave}
+          onReady=${onReady}
           doRefresh=${refreshList}
           list=${list}
           _current=${_current}
@@ -100,7 +75,46 @@ const IridiumApp = (props) => {
   </div>`;
 };
 
-render(
-  html`<${IridiumApp} Ir=${Iridium} />`,
-  document.getElementById('iridium-root'),
-);
+window.Iridium = {
+  IridiumApp: IridiumApp,
+  html: html,
+  render: render,
+  useEffect: useEffect,
+  useRef: useRef,
+  useState: useState,
+  save: (name, cells) => {
+    return localForage.setItem(name + '', cells);
+  },
+  new: (name) => {
+    return localForage.setItem(name, []);
+  },
+  load: (name) => {
+    return localForage.getItem(name + '');
+  },
+  list: () => {
+    return localForage.keys();
+  },
+  delete: (name) => {
+    localForage.removeItem(name);
+  },
+  get_recent: () => {
+    return localStorage.getItem('IridiumRecent');
+  },
+  set_recent: (name) => {
+    if (name) {
+      return localStorage.setItem('IridiumRecent', name);
+    } else {
+      return false;
+    }
+  },
+  ready: (main) => {
+    window.IridiumMain = main;
+  },
+  toggle_editor: () => {},
+  localForage: localForage,
+};
+
+// render(
+//   html`<${IridiumApp} Ir=${Iridium} />`,
+//   document.getElementById('iridium-root'),
+// );

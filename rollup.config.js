@@ -1,13 +1,13 @@
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
-import css from 'rollup-plugin-import-css';
+import styles from "rollup-plugin-styles";
 import { terser } from 'rollup-plugin-terser';
 
 export default {
   input: 'src/index.js',
   output: {
-    file: 'dist/index.js',
-    format: 'umd',
+    file: 'dist/iridium.js',
+    format: 'esm',
     name: 'IridiumApp',
   },
   plugins: [
@@ -15,7 +15,7 @@ export default {
       browser: true,
     }),
     commonjs(),
-    css(),
+    styles(),
     terser(),
   ],
 };
