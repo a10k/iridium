@@ -16,6 +16,7 @@
   "devDependencies": {
     "@rollup/plugin-commonjs": "^19.0.0",
     "@rollup/plugin-node-resolve": "^13.0.0",
+    "node-sass": "^6.0.1",
     "rollup": "^2.50.4",
     "rollup-plugin-styles": "^3.14.1",
     "rollup-plugin-terser": "^7.0.2"

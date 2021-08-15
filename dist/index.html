@@ -4,22 +4,20 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" href="data:," />
+    <script src="./iridium.js"></script>
   </head>
   <body class="" data-hint-view-only="IridiumViewOnly">
     <div id="iridium-root-wrapper">
       <div id="iridium-root"></div>
     </div>
-    <script src="./iridium.js"></script>
     <script>
-      // Iridium.ready = (main) => {
-      //   console.log(main);
-      //   main.define('variable', 257);
-      // };
-      Iridium.render(
-        Iridium.html`<${Iridium.IridiumApp} Ir=${Iridium} />`,
-        document.getElementById('iridium-root'),
-      );
       /*
+      // Override to catch the notebook main
+      Iridium.ready = (main) => {
+        console.log(main);
+        main.define('variable', 257);
+      };
+
       // Override with custom load, save, new, delete, list promises.
       Iridium.load = () => {
         return new Promise((yes, no) => {
@@ -27,6 +25,11 @@
         });
       };
       */
+
+      Iridium.render(
+        Iridium.html`<${Iridium.IridiumApp} Ir=${Iridium} />`,
+        document.getElementById('iridium-root'),
+      );
     </script>
   </body>
 </html>

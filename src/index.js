@@ -4,10 +4,11 @@ import localForage from 'localforage';
 import IridiumNotebook from './components/IridiumNotebook';
 import icons from './icons';
 
-import './editor.css';
-import './inspector.css';
+import './editor.scss';
+import './inspector.scss';
 import '@shoelace-style/shoelace/dist/themes/base.css';
 
+import '@shoelace-style/shoelace/dist/components/tooltip/tooltip.js';
 import '@shoelace-style/shoelace/dist/components/menu/menu.js';
 import '@shoelace-style/shoelace/dist/components/menu-item/menu-item.js';
 import '@shoelace-style/shoelace/dist/components/button/button.js';

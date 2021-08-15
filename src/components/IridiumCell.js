@@ -107,10 +107,12 @@ const IridiumCell = (props) => {
       ></sl-icon-button>
     </div>
     <div class="CellActions" onClick=${props.onPinToggle}>
-      <sl-icon-button
-        name=${props.pinned ? 'pin-angle-fill' : 'pin-angle'}
-        label="pin"
-      ></sl-icon-button>
+      <sl-tooltip content="Pin" placement="bottom">
+        <sl-icon-button
+          name=${props.pinned ? 'pin-angle-fill' : 'pin-angle'}
+          label="pin"
+        ></sl-icon-button>
+      </sl-tooltip>
     </div>
     ${props.pinned
       ? html`<div class="CellContainer">
@@ -123,26 +125,32 @@ const IridiumCell = (props) => {
             set_code=${_setSource}
           />
           <div class="CellEditorActions">
-            <sl-icon-button
-              name="trash2"
-              label="Delete"
-              onClick=${_onDelete}
-            ></sl-icon-button>
-            <sl-icon-button
-              name="text-indent-left"
-              label="Indent"
-              style="font-size: 1.25rem;"
-              onClick=${() => {
-                var formatted = beautify(sourceCode, {});
-                setSource && setSource.setter(formatted);
-              }}
-            ></sl-icon-button>
-            <sl-icon-button
-              name=${unsaved ? 'play-fill' : 'play'}
-              label="Run"
-              style="font-size: 1.25rem;"
-              onClick=${_onSave}
-            ></sl-icon-button>
+            <sl-tooltip content="Delete">
+              <sl-icon-button
+                name="trash2"
+                label="Delete"
+                onClick=${_onDelete}
+              ></sl-icon-button>
+            </sl-tooltip>
+            <sl-tooltip content="Indent">
+              <sl-icon-button
+                name="text-indent-left"
+                label="Indent"
+                style="font-size: 1.25rem;"
+                onClick=${() => {
+                  var formatted = beautify(sourceCode, {});
+                  setSource && setSource.setter(formatted);
+                }}
+              ></sl-icon-button>
+            </sl-tooltip>
+            <sl-tooltip content="Run">
+              <sl-icon-button
+                name=${unsaved ? 'play-fill' : 'play'}
+                label="Run"
+                style="font-size: 1.25rem;"
+                onClick=${_onSave}
+              ></sl-icon-button>
+            </sl-tooltip>
           </div>
         </div>`
       : null}

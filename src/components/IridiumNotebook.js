@@ -120,31 +120,33 @@ const IridiumNotebook = (props) => {
   return html`<div class="IridiumNotebook" ref=${ref}>
     <div class="IridiumHeader">
       <div class="IridiumTitle">../${props.title || ''}</div>
-      <sl-button-group style="float:right;">
-        <sl-button onClick=${() => props.onSave(cells)}
-          ><sl-icon name="journal-arrow-up"></sl-icon
-        ></sl-button>
-        ${props.list && props.list.length
-          ? html`<sl-dropdown hoist placement="bottom-end">
-              <sl-button slot="trigger" caret></sl-button
-              ><sl-menu class="IridiumList">
-                ${props.list.map((item) => {
-                  return html`<sl-menu-item
-                    checked=${item == props.title}
-                    onClick=${() => {
-                      if (item != props.title) {
-                        props._cells(null);
-                        props._current(item);
-                      }
-                    }}
-                  >
-                    ${item}
-                  </sl-menu-item>`;
-                })}
-              </sl-menu>
-            </sl-dropdown>`
-          : null}
-      </sl-button-group>
+      <sl-tooltip content="Save" placement="left">
+        <sl-button-group style="float:right;">
+          <sl-button onClick=${() => props.onSave(cells)}
+            ><sl-icon name="journal-arrow-up"></sl-icon
+          ></sl-button>
+          ${props.list && props.list.length
+            ? html`<sl-dropdown hoist placement="bottom-end">
+                <sl-button slot="trigger" caret></sl-button
+                ><sl-menu class="IridiumList">
+                  ${props.list.map((item) => {
+                    return html`<sl-menu-item
+                      checked=${item == props.title}
+                      onClick=${() => {
+                        if (item != props.title) {
+                          props._cells(null);
+                          props._current(item);
+                        }
+                      }}
+                    >
+                      ${item}
+                    </sl-menu-item>`;
+                  })}
+                </sl-menu>
+              </sl-dropdown>`
+            : null}
+        </sl-button-group>
+      </sl-tooltip>
     </div>
     ${cells.map((cell, cell_index) => {
       return html`<${IridiumCell}
@@ -161,11 +163,13 @@ const IridiumNotebook = (props) => {
       />`;
     })}
     <div className="CellsAfter">
-      <sl-icon-button
-        name="plus-square"
-        label="New"
-        onClick=${() => _onNew()}
-      ></sl-icon-button>
+      <sl-tooltip content="New" placement="right">
+        <sl-icon-button
+          name="plus-square"
+          label="New"
+          onClick=${() => _onNew()}
+        ></sl-icon-button>
+      </sl-tooltip>
     </div>
   </div>`;
 };
