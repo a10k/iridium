@@ -111,6 +111,7 @@ const IridiumNotebook = (props) => {
   }, []);
 
   useEffect(() => {
+    props._cells(cells);
     document.addEventListener('keydown', onKeyPressForSave);
     return () => {
       document.removeEventListener('keydown', onKeyPressForSave);

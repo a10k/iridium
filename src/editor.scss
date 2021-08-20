@@ -31,6 +31,11 @@
 }
 
 .IridiumApp {
+  &.IridiumNotebookUnsaved .IridiumCell.Pinned,
+  &.IridiumNotebookUnsaved .IridiumCell.UnPinned {
+    border-left: 1px solid var(--syntax_error);
+  }
+
   .IridiumHeader {
     width: 100%;
     min-height: 40px;
@@ -53,18 +58,22 @@
     position: relative;
     background: #fff;
     margin-bottom: 24px;
-  }
 
-  .IridiumCell.Pinned {
-    border-left: 1px solid var(--sl-color-gray-200);
-  }
+    &.Pinned {
+      border-left: 1px solid var(--sl-color-gray-200);
+    }
 
-  .IridiumCell.UnPinned {
-    border-left: 1px solid transparent;
-  }
+    &.UnPinned {
+      border-left: 1px solid transparent;
+    }
 
-  .IridiumCell:hover {
-    border-left: 1px solid var(--sl-color-gray-700);
+    &:hover {
+      border-left: 1px solid var(--sl-color-gray-700);
+    }
+    &.Pinned.IridiumCellUnsaved,
+    &.UnPinned.IridiumCellUnsaved {
+      border-left: 1px solid var(--ir-error);
+    }
   }
 
   .CellResults,

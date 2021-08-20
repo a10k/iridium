@@ -26,6 +26,7 @@ registerIconLibrary('default', {
 const IridiumApp = (props) => {
   const [current, _current] = useState(props.Ir.get_recent() || null);
   const [cells, _cells] = useState(null);
+  const [og_cells, _og_cells] = useState(null);
   const [list, _list] = useState([]);
 
   useEffect(() => {
@@ -33,8 +34,10 @@ const IridiumApp = (props) => {
     props.Ir.load(current).then((loaded) => {
       if (loaded) {
         _cells(loaded);
+        _og_cells(JSON.stringify(loaded));
       } else {
         _cells([]);
+        _og_cells(JSON.stringify([]));
       }
     });
   }, [current]);
@@ -53,14 +56,22 @@ const IridiumApp = (props) => {
   };
 
   const onSave = (cells) => {
-    props.Ir.save(current, cells);
+    props.Ir.save(current, cells).then((done) => {
+      _og_cells(JSON.stringify(cells));
+    });
   };
 
   const onReady = (main) => {
     props.Ir.ready(main);
   };
 
-  return html`<div class="IridiumApp">
+  const notebook_unchanged = JSON.stringify(cells) == og_cells;
+
+  return html`<div
+    class="IridiumApp ${notebook_unchanged
+      ? 'IridiumNotebookSaved'
+      : 'IridiumNotebookUnsaved'}"
+  >
     ${cells
       ? html`<${IridiumNotebook}
           title=${current}

@@ -87,7 +87,7 @@ const IridiumCell = (props) => {
   }
 
   return html`<div
-    class=${`IridiumCell ${props.pinned ? 'Pinned' : 'UnPinned'}`}
+    class=${`IridiumCell ${props.pinned ? 'Pinned' : 'UnPinned'} ${unsaved ? 'IridiumCellUnsaved' : 'IridiumCellSaved'}`}
   >
     <div style=${`display: ${error ? 'block' : 'none'}`} class="CellError">
       <div class="observablehq observablehq--error">
