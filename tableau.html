@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="data:," />
+    <script src="https://cdn.jsdelivr.net/gh/tableau/extensions-api/lib/tableau.extensions.1.latest.js"></script>
+    <script src="./iridium.js"></script>
+  </head>
+  <body class="" data-hint-view-only="IridiumViewOnly">
+    <div id="iridium-root-wrapper">
+      <div id="iridium-root"></div>
+    </div>
+    <script>
+      tableau.extensions
+        .initializeAsync({
+          configure: () => {
+            tableau.extensions.ui.displayDialogAsync(
+              window.location.href + "?configure",
+              "",
+              {
+                height: 500,
+                width: 600,
+              }
+            );
+          },
+        })
+        .then((d) => {
+          // Iridium.ready = (main) => {
+          //   console.log(main);
+          //   main.define('variable', 257);
+          // };
+
+          // Override with custom load, save, new, delete, list promises.
+          Iridium.load = () => {
+            return new Promise((yes, no) => {
+              var data =
+                tableau.extensions.settings.get("notebook") ||
+                JSON.stringify([
+                  { id: 0, pinned: true, sourceCode: "md`# Iridium`" },
+                ]);
+              yes(JSON.parse(data));
+            });
+          };
+
+          Iridium.save = (name, data) => {
+            return new Promise((yes, no) => {
+              tableau.extensions.settings.set("notebook", JSON.stringify(data));
+              tableau.extensions.settings.saveAsync().then((d) => {
+                yes(true);
+              });
+            });
+          };
+
+          Iridium.render(
+            Iridium.html`<${Iridium.IridiumApp} Ir=${Iridium} />`,
+            document.getElementById("iridium-root")
+          );
+        });
+    </script>
+  </body>
+</html>
