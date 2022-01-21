@@ -93,18 +93,23 @@ const IridiumNotebook = (props) => {
   };
 
   useEffect(() => {
-    main.define('width', ['Generators'], (Generators) =>
-      Generators.observe((change) => {
-        change(null);
+    main.define('width', ['Generators'], (Generators) => {
+      var old_width = null;
+      return Generators.observe((change) => {
         const ro = new ResizeObserver((entries) => {
+          var new_width = 0;
           for (let entry of entries) {
-            change(entry.contentRect.width - 28);
+            new_width = entry.contentRect.width - 28;
+          }
+          if (new_width != old_width) {
+            change(new_width);
+            old_width = new_width;
           }
         });
         ro.observe(ref.current);
         return () => ro.disconnect();
-      }),
-    );
+      });
+    });
 
     // Store the main to top parent to use it for setting magic variables from outside the notebook
     props.onReady(main);
@@ -122,31 +127,9 @@ const IridiumNotebook = (props) => {
     <div class="IridiumHeader">
       <div class="IridiumTitle">../${props.title || ''}</div>
       <sl-tooltip content="Save" placement="left">
-        <sl-button-group style="float:right;">
-          <sl-button onClick=${() => props.onSave(cells)}
-            ><sl-icon name="journal-arrow-up"></sl-icon
-          ></sl-button>
-          ${props.list && props.list.length
-            ? html`<sl-dropdown hoist placement="bottom-end">
-                <sl-button slot="trigger" caret></sl-button
-                ><sl-menu class="IridiumList">
-                  ${props.list.map((item) => {
-                    return html`<sl-menu-item
-                      checked=${item == props.title}
-                      onClick=${() => {
-                        if (item != props.title) {
-                          props._cells(null);
-                          props._current(item);
-                        }
-                      }}
-                    >
-                      ${item}
-                    </sl-menu-item>`;
-                  })}
-                </sl-menu>
-              </sl-dropdown>`
-            : null}
-        </sl-button-group>
+        <sl-button style="float:right;" onClick=${() => props.onSave(cells)}
+          ><sl-icon name="journal-arrow-up"></sl-icon
+        ></sl-button>
       </sl-tooltip>
     </div>
     ${cells.map((cell, cell_index) => {

@@ -1,6 +1,5 @@
 import { html, render } from 'htm/preact';
 import { useEffect, useRef, useState } from 'preact/hooks';
-import localForage from 'localforage';
 import IridiumNotebook from './components/IridiumNotebook';
 import icons from './icons';
 
@@ -9,11 +8,7 @@ import './inspector.scss';
 import '@shoelace-style/shoelace/dist/themes/base.css';
 
 import '@shoelace-style/shoelace/dist/components/tooltip/tooltip.js';
-import '@shoelace-style/shoelace/dist/components/menu/menu.js';
-import '@shoelace-style/shoelace/dist/components/menu-item/menu-item.js';
 import '@shoelace-style/shoelace/dist/components/button/button.js';
-import '@shoelace-style/shoelace/dist/components/button-group/button-group.js';
-import '@shoelace-style/shoelace/dist/components/dropdown/dropdown.js';
 import '@shoelace-style/shoelace/dist/components/icon/icon.js';
 import '@shoelace-style/shoelace/dist/components/icon-button/icon-button.js';
 import { registerIconLibrary } from '@shoelace-style/shoelace/dist/utilities/icon-library.js';
@@ -65,7 +60,9 @@ const IridiumApp = (props) => {
     props.Ir.ready(main);
   };
 
-  const notebook_unchanged = JSON.stringify(cells) == og_cells;
+  const notebook_unchanged =
+    JSON.stringify((cells || []).map((d) => d.sourceCode)) ===
+    JSON.stringify(JSON.parse(og_cells || '[]').map((d) => d.sourceCode));
 
   return html`<div
     class="IridiumApp ${notebook_unchanged
@@ -95,19 +92,27 @@ window.Iridium = {
   useRef: useRef,
   useState: useState,
   save: (name, cells) => {
-    return localForage.setItem(name + '', cells);
+    return new Promise((yes, no) => {
+      yes(localStorage.setItem(name + '', JSON.stringify(cells)));
+    });
   },
   new: (name) => {
-    return localForage.setItem(name, []);
+    return new Promise((yes, no) => {
+      yes(localStorage.setItem(name + '', JSON.stringify([])));
+    });
   },
   load: (name) => {
-    return localForage.getItem(name + '');
+    return new Promise((yes, no) => {
+      yes(JSON.parse(localStorage.getItem(name + '')));
+    });
   },
   list: () => {
-    return localForage.keys();
+    return new Promise((yes, no) => {
+      yes(Object.keys(localStorage));
+    });
   },
   delete: (name) => {
-    localForage.removeItem(name);
+    localStorage.removeItem(name);
   },
   get_recent: () => {
     return localStorage.getItem('IridiumRecent');
@@ -122,8 +127,6 @@ window.Iridium = {
   ready: (main) => {
     window.IridiumMain = main;
   },
-  toggle_editor: () => {},
-  localForage: localForage,
 };
 
 // render(

@@ -12,10 +12,6 @@
   max-width: 960px;
   margin-left: auto;
   margin-right: auto;
-  code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-      monospace;
-  }
 }
 
 .IridiumApp {
@@ -23,11 +19,7 @@
   margin-left: auto;
   margin-right: auto;
   padding: 24px 0px;
-  color: var(--ir-text, #000);
   width: 100%;
-  font-size: 16px;
-  font-family: var(--sans-serif);
-  line-height: 1.5;
 }
 
 .IridiumApp {

@@ -2,7 +2,24 @@ import { html } from 'htm/preact';
 import { useEffect, useRef, useState } from 'preact/hooks';
 import { Inspector } from '@observablehq/runtime';
 import CodeEditor from './CodeEditor.js';
-import beautify from 'js-beautify';
+import beautify from 'js-beautify/js/src/javascript';
+
+const get_cell_type = (og_source) => {
+  const source = ('' + og_source).trimStart();
+  if (source) {
+    if (source.match(/^viewof /)) {
+      return 'viewof';
+    } else if (source.match(/^mutable /)) {
+      return 'mutable';
+    } else if (source.match(/^import /)) {
+      return 'import';
+    } else {
+      return '';
+    }
+  } else {
+    return '';
+  }
+};
 
 const IridiumCell = (props) => {
   const ref = useRef(null);
@@ -12,6 +29,7 @@ const IridiumCell = (props) => {
   const [variables, _variables] = useState(null);
   const [setSource, _setSource] = useState(null);
   const unsaved = savedSourceCode !== sourceCode;
+  const cell_type = get_cell_type(sourceCode);
 
   const _onDelete = () => {
     props.onDelete();
@@ -73,21 +91,10 @@ const IridiumCell = (props) => {
     }
   }, []);
 
-  let cell_type = '';
-  if (variables && variables.length > 1) {
-    //var list = variables.map((d) => d._name);
-    if (variables[0]._name && variables[0]._name.indexOf('viewof') > -1) {
-      cell_type = 'viewof';
-    } else if (
-      variables[0]._name &&
-      variables[0]._name.indexOf('initial') > -1
-    ) {
-      cell_type = 'mutable';
-    }
-  }
-
   return html`<div
-    class=${`IridiumCell ${props.pinned ? 'Pinned' : 'UnPinned'} ${unsaved ? 'IridiumCellUnsaved' : 'IridiumCellSaved'}`}
+    class=${`IridiumCell ${props.pinned ? 'Pinned' : 'UnPinned'} ${
+      unsaved ? 'IridiumCellUnsaved' : 'IridiumCellSaved'
+    }`}
   >
     <div style=${`display: ${error ? 'block' : 'none'}`} class="CellError">
       <div class="observablehq observablehq--error">

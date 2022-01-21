@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "rollup -c -w",
-    "build": "",
+    "build": "rollup -c",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -18,8 +18,10 @@
     "@rollup/plugin-node-resolve": "^13.0.0",
     "node-sass": "^6.0.1",
     "rollup": "^2.50.4",
+    "rollup-plugin-analyzer": "^4.0.0",
     "rollup-plugin-styles": "^3.14.1",
-    "rollup-plugin-terser": "^7.0.2"
+    "rollup-plugin-terser": "^7.0.2",
+    "rollup-plugin-visualizer": "^5.5.2"
   },
   "dependencies": {
     "@alex.garcia/unofficial-observablehq-compiler": "^0.6.0-alpha.9",
@@ -29,7 +31,6 @@
     "highlight.js": "^11.1.0",
     "htm": "^3.0.4",
     "js-beautify": "^1.14.0",
-    "localforage": "^1.9.0",
     "preact": "^10.5.13"
   }
 }
