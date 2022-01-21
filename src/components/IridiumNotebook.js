@@ -2,6 +2,8 @@ import { html } from 'htm/preact';
 import { useEffect, useRef, useState } from 'preact/hooks';
 import { Runtime } from '@observablehq/runtime';
 import { Interpreter } from '@alex.garcia/unofficial-observablehq-compiler';
+
+import IridiumIconButton from './IridiumIconButton.js';
 import IridiumCell from './IridiumCell.js';
 
 const iridiumImportResolver = (notebook) => {
@@ -126,11 +128,13 @@ const IridiumNotebook = (props) => {
   return html`<div class="IridiumNotebook" ref=${ref}>
     <div class="IridiumHeader">
       <div class="IridiumTitle">../${props.title || ''}</div>
-      <sl-tooltip content="Save" placement="left">
-        <sl-button style="float:right;" onClick=${() => props.onSave(cells)}
-          ><sl-icon name="journal-arrow-up"></sl-icon
-        ></sl-button>
-      </sl-tooltip>
+      <${IridiumIconButton}
+        content="Save"
+        style="float:right;"
+        onClick=${() => props.onSave(cells)}
+        placement="left"
+        name="journal-arrow-up"
+      />
     </div>
     ${cells.map((cell, cell_index) => {
       return html`<${IridiumCell}
@@ -147,13 +151,13 @@ const IridiumNotebook = (props) => {
       />`;
     })}
     <div className="CellsAfter">
-      <sl-tooltip content="New" placement="right">
-        <sl-icon-button
-          name="plus-square"
-          label="New"
-          onClick=${() => _onNew()}
-        ></sl-icon-button>
-      </sl-tooltip>
+      <${IridiumIconButton}
+        content="New"
+        placement="right"
+        name="plus-square"
+        label="New"
+        onClick=${() => _onNew()}
+      />
     </div>
   </div>`;
 };

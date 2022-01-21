@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'preact/hooks';
 import { Inspector } from '@observablehq/runtime';
 import CodeEditor from './CodeEditor.js';
 import beautify from 'js-beautify/js/src/javascript';
+import IridiumIconButton from './IridiumIconButton.js';
 
 const get_cell_type = (og_source) => {
   const source = ('' + og_source).trimStart();
@@ -85,6 +86,7 @@ const IridiumCell = (props) => {
       props.saveNotebook();
     }
   };
+
   useEffect(() => {
     if (ref.current && sourceCode) {
       _onSave();
@@ -107,19 +109,19 @@ const IridiumCell = (props) => {
       style=${`display: ${!error ? 'block' : 'none'}`}
     ></div>
     <div class="CellBefore">
-      <sl-icon-button
+      <${IridiumIconButton}
         name="plus-square"
         label="New"
         onClick=${props.addBefore}
-      ></sl-icon-button>
+      />
     </div>
     <div class="CellActions" onClick=${props.onPinToggle}>
-      <sl-tooltip content="Pin" placement="bottom">
-        <sl-icon-button
-          name=${props.pinned ? 'pin-angle-fill' : 'pin-angle'}
-          label="pin"
-        ></sl-icon-button>
-      </sl-tooltip>
+      <${IridiumIconButton}
+        content="Pin"
+        placement="bottom"
+        name=${props.pinned ? 'pin-angle-fill' : 'pin-angle'}
+        label="pin"
+      />
     </div>
     ${props.pinned
       ? html`<div class="CellContainer">
@@ -132,32 +134,29 @@ const IridiumCell = (props) => {
             set_code=${_setSource}
           />
           <div class="CellEditorActions">
-            <sl-tooltip content="Delete">
-              <sl-icon-button
-                name="trash2"
-                label="Delete"
-                onClick=${_onDelete}
-              ></sl-icon-button>
-            </sl-tooltip>
-            <sl-tooltip content="Indent">
-              <sl-icon-button
-                name="text-indent-left"
-                label="Indent"
-                style="font-size: 1.25rem;"
-                onClick=${() => {
-                  var formatted = beautify(sourceCode, {});
-                  setSource && setSource.setter(formatted);
-                }}
-              ></sl-icon-button>
-            </sl-tooltip>
-            <sl-tooltip content="Run">
-              <sl-icon-button
-                name=${unsaved ? 'play-fill' : 'play'}
-                label="Run"
-                style="font-size: 1.25rem;"
-                onClick=${_onSave}
-              ></sl-icon-button>
-            </sl-tooltip>
+            <${IridiumIconButton}
+              content="Delete"
+              name="trash2"
+              label="Delete"
+              onClick=${_onDelete}
+            />
+            <${IridiumIconButton}
+              content="Indent"
+              name="text-indent-left"
+              label="Indent"
+              style="font-size: 1.25rem;"
+              onClick=${() => {
+                var formatted = beautify(sourceCode, {});
+                setSource && setSource.setter(formatted);
+              }}
+            />
+            <${IridiumIconButton}
+              content="Run"
+              name=${unsaved ? 'play-fill' : 'play'}
+              label="Run"
+              style="font-size: 1.25rem;"
+              onClick=${_onSave}
+            />
           </div>
         </div>`
       : null}

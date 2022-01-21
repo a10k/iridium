@@ -52,7 +52,7 @@
     margin-bottom: 24px;
 
     &.Pinned {
-      border-left: 1px solid var(--sl-color-gray-200);
+      border-left: 1px solid #333;
     }
 
     &.UnPinned {
@@ -60,7 +60,7 @@
     }
 
     &:hover {
-      border-left: 1px solid var(--sl-color-gray-700);
+      border-left: 1px solid #333;
     }
     &.Pinned.IridiumCellUnsaved,
     &.UnPinned.IridiumCellUnsaved {
@@ -83,8 +83,8 @@
 
   .CellBefore {
     position: absolute;
-    top: -28px;
-    left: -18px;
+    top: -24px;
+    left: -14px;
     padding-right: 10px;
     opacity: 0;
     z-index: 10;
@@ -131,9 +131,6 @@
     display: block;
   }
 
-  .CellEditorActions sl-icon-button {
-    vertical-align: middle;
-  }
 
   .CodeEditor {
     resize: none !important;

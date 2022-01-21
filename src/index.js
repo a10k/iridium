@@ -1,22 +1,10 @@
 import { html, render } from 'htm/preact';
 import { useEffect, useRef, useState } from 'preact/hooks';
 import IridiumNotebook from './components/IridiumNotebook';
-import icons from './icons';
 
 import './editor.scss';
 import './inspector.scss';
-import '@shoelace-style/shoelace/dist/themes/base.css';
 
-import '@shoelace-style/shoelace/dist/components/tooltip/tooltip.js';
-import '@shoelace-style/shoelace/dist/components/button/button.js';
-import '@shoelace-style/shoelace/dist/components/icon/icon.js';
-import '@shoelace-style/shoelace/dist/components/icon-button/icon-button.js';
-import { registerIconLibrary } from '@shoelace-style/shoelace/dist/utilities/icon-library.js';
-
-registerIconLibrary('default', {
-  resolver: icons,
-  mutator: (svg) => svg.setAttribute('fill', 'currentColor'),
-});
 
 const IridiumApp = (props) => {
   const [current, _current] = useState(props.Ir.get_recent() || null);

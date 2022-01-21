@@ -26,7 +26,6 @@
   "dependencies": {
     "@alex.garcia/unofficial-observablehq-compiler": "^0.6.0-alpha.9",
     "@observablehq/runtime": "^4.11.2",
-    "@shoelace-style/shoelace": "^2.0.0-beta.42",
     "codejar": "^3.5.0",
     "highlight.js": "^11.1.0",
     "htm": "^3.0.4",
